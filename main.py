@@ -8,12 +8,6 @@ class sale():
 		self.sale_list = {}
 		self.last_request_id = 0
 
-	def add(self, quantity, price):
-		request_id = self.last_request_id
-		self.sale_list[request_id] = self.request_list(quantity, price)
-		self.last_request_id += 1
-		return request_id
-
 	def get(self, request_id):
 		return self.sale_list.get(int(request_id), 'Заявок с таким id нет')
 
@@ -21,11 +15,16 @@ class sale():
 		del self.sale_list[request_id]
 
 	def view(self):
-		clean_sale_list = []
-		for key in self.sale_list:
-			clean_sale_list.append(self.sale_list[key])
+		view_list = [self.sale_list[i] for i in self.sale_list]
+		return view_list
 
-		return clean_sale_list
+	def add(self, quantity, price):
+		request_id = self.last_request_id
+		self.sale_list[request_id] = self.request_list(quantity, price)
+		actual = self.get(self.last_request_id)
+		expected = self.request_list(quantity, price)
+		self.last_request_id += 1
+		return request_id, actual, expected
 
 # buy
 class buy():
@@ -35,12 +34,6 @@ class buy():
 		self.buy_list = {}
 		self.last_request_id = 0
 
-	def add(self, quantity, price):
-		request_id = self.last_request_id
-		self.buy_list[request_id] = self.request_list(quantity, price)
-		self.last_request_id += 1
-		return request_id
-
 	def get(self, request_id):
 		return self.buy_list.get(request_id)
 
@@ -48,8 +41,13 @@ class buy():
 		return self.buy_list.pop(request_id)
 
 	def view(self):
-		clean_buy_list = []
-		for key in self.buy_list:
-			clean_buy_list.append(self.buy_list[key])
+		view_list = [self.buy_list[i] for i in self.buy_list]
+		return view_list
 
-		return clean_buy_list
+	def add(self, quantity, price):
+		request_id = self.last_request_id
+		self.buy_list[request_id] = self.request_list(quantity, price)
+		actual = self.get(self.last_request_id)
+		expected = self.request_list(quantity, price)
+		self.last_request_id += 1
+		return request_id, actual, expected

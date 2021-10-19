@@ -5,7 +5,7 @@ sale_example = main.sale()
 buy_example = main.buy()
 
 while True:
-    command = input('\nВведите команду - add, get, del, view, test, exit: ')
+    command = input('\nВведите команду - add, get, del, view, exit: ')
 
     # add, get, del
     if command == 'add' or command == 'get' or command == 'del':
@@ -16,7 +16,8 @@ while True:
             if command == 'add':
                 quantity = input('Введите кол-во: ')
                 price = input('Введите цену: ')
-                print(f'id вашей заявки: {sale_example.add(quantity, price)}')
+                request_id, actual, expected = sale_example.add(quantity, price) 
+                print(f'id вашей заявки: {request_id}')
 
             elif command == 'get':
                 request_id = input('Введите id заявки: ')
@@ -31,7 +32,8 @@ while True:
             if command == 'add':
                 quantity = input('Введите кол-во: ')
                 price = input('Введите цену: ')
-                print(f'id вашей заявки: {buy_example.add(quantity, price)}')
+                request_id, actual, expected = buy_example.add(quantity, price)
+                print(f'id вашей заявки: {request_id}')
             
             elif command == 'get':
                 request_id = input('Введите id заявки: ')
@@ -49,9 +51,6 @@ while True:
     elif command == 'view':
         print(sale_example.view())
         print(buy_example.view())
-    # test
-    elif command == 'test':
-        print(tests.multiple_test())
     
     # exit
     elif command == 'exit':

@@ -1,104 +1,57 @@
+import unittest
+from collections import namedtuple
 import main
 
-sale_example = main.sale()
-buy_example = main.buy()
+class case(unittest.TestCase):
+    request_list = namedtuple('list', 'Quantity Price')
+    def test_sale_add(self):
+        sale_example = main.sale()
+        request_id_1, actual_1, expected_1 = sale_example.add(5, 1)
+        self.assertEqual(actual_1, expected_1)
+        
+        request_id_2, actual_2, expected_2 = sale_example.add(3, 16)
+        self.assertEqual(actual_2, expected_2)
 
-# класс создания заявки
-class create():
-    # создание заявки на продажу, выдача его id, саму заявку и ожидаемую заявку
-    def create_sale(self, quantity, price):
-        request_id = sale_example.add(quantity, price)
-        actual = sale_example.get(request_id)
-        expected = sale_example.request_list(quantity, price)
-        return request_id, expected, actual
+        sale_example.delete(request_id_2)
 
-    # создание заявки на покупку, выдача его id, саму заявку и ожидаемую заявку
-    def create_buy(self, quantity, price):
-        request_id = buy_example.add(quantity, price)
-        actual = buy_example.get(request_id)
-        expected = buy_example.request_list(quantity, price)
-        return request_id, expected, actual
+        request_id_3, actual_3, expected_3 = sale_example.add(8, 47)
+        self.assertEqual(actual_3, expected_3)
 
-# экземпляр класса создания заявки
-create_example = create()
+        self.assertEqual(actual_2, expected_2)
 
-# тест на проверку соответсвия добавленной заяки от полученной и проверка id заявок   P.S. для заявок на продажу
-def test_sale():
-    request_first_id, expected_first, actual_first = create_example.create_sale(4, 10)
-    if expected_first != actual_first:
-        return False
+    def test_sale_view(self):
+        sale_example = main.sale()
+        sale_example.add(9, 5)
+        sale_example.add(36, 289)
+        actual = sale_example.view()
+        expected = [self.request_list(9, 5), self.request_list(36, 289)]
+        self.assertEqual(actual, expected)
 
-    request_second_id, expected_second, actual_second = create_example.create_sale(15, 30)
-    if expected_second != actual_second:
-        return False
+    def test_buy_add(self):
+        buy_example = main.buy()
+        request_id_1, actual_1, expected_1 = buy_example.add(9, 4)
+        self.assertEqual(actual_1, expected_1)
 
+        request_id_2, actual_2, expected_2 = buy_example.add(37, 95)
+        self.assertEqual(actual_2, expected_2)
 
-    sale_example.delete(request_first_id)
+        buy_example.delete(request_id_2)
 
-    request_third_id, expected_third, actual_third = create_example.create_sale(1, 178)
-    if expected_third != actual_third:
-        return False
+        request_id_3, actual_3, expected_3 = buy_example.add(64, 46)
+        self.assertEqual(actual_3, expected_3)
 
-    if expected_second != actual_second:
-        return False
+        self.assertEqual(actual_2, expected_2)
 
-    return True
-
-# тест на проверку соответсвия добавленной заяки от полученной и проверка id заявок   P.S. для заявок на покупку
-def test_buy():
-    request_first_id, expected_first, actual_first = create_example.create_buy(4, 10)
-    if expected_first != actual_first:
-        return False
-
-    request_second_id, expected_second, actual_second = create_example.create_buy(15, 30)
-    if expected_second != actual_second:
-        return False
+    def test_buy_view(self):
+        buy_example = main.buy()
+        buy_example.add(1, 8)
+        buy_example.add(195, 29)
+        actual = buy_example.view()
+        expected = [self.request_list(1, 8), self.request_list(195, 29)]
+        self.assertEqual(actual, expected)
 
 
-    buy_example.delete(request_first_id)
+test = case()
 
-    request_third_id, expected_third, actual_third = create_example.create_buy(1, 178)
-    if expected_third != actual_third:
-        return False
-
-    if expected_second != actual_second:
-        return False
-
-    return True
-
-sale_example_view = main.sale()
-buy_example_view = main.buy()
-# тест на проверку просмотра всех заявок
-def test_view():
-    sale_example_view.add(9, 56)
-    sale_example_view.add(19, 936)
-    buy_example_view.add(111, 47)
-    expected_first = sale_example_view.request_list(9, 56)
-    expected_second = sale_example_view.request_list(19, 936)
-    expected_third = buy_example_view.request_list(111, 47)
-
-    if sale_example_view.view() != [expected_first, expected_second]:
-        return False
-    
-    if buy_example_view.view() != [expected_third]:
-        return False
-
-    return True  
-
-# проверка всех тестов и вывод результата
-def multiple_test():
-    if test_sale() == True:
-        print(True)
-    else:
-        print('Ошибка в "test_sale"')
-    if test_buy() == True:
-        print(True)
-    else:
-        print('Ошибка в "test_buy"')
-    if test_view() == True:
-        print(True)
-    else:
-        print('Ошибка в "test_view"')
-
-    return ''
-
+#if __name__ == "__main__":
+#    unittest.main()
