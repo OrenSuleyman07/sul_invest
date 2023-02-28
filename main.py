@@ -12,7 +12,7 @@ class sale():
 		return self.sale_list.get(int(request_id), 'Заявок с таким id нет')
 
 	def delete(self, request_id):
-		del self.sale_list[request_id]
+		del self.sale_list[int(request_id)]
 
 	def view(self):
 		view_list = [self.sale_list[i] for i in self.sale_list]
@@ -35,10 +35,10 @@ class buy():
 		self.last_request_id = 0
 
 	def get(self, request_id):
-		return self.buy_list.get(request_id)
+		return self.buy_list.get(int(request_id))
 
 	def delete(self, request_id):
-		return self.buy_list.pop(request_id)
+		return self.buy_list.pop(int(request_id))
 
 	def view(self):
 		view_list = [self.buy_list[i] for i in self.buy_list]

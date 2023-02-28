@@ -1,5 +1,5 @@
 import main
-import tests
+# import tests
 
 sale_example = main.sale()
 buy_example = main.buy()
