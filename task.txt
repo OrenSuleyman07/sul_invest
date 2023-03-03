@@ -30,7 +30,7 @@
 5*. Попробовать переставить тесты местами и убедиться, что они по-прежнему работают. +
 
 28.02.23
-1. Introduce sorting by price in view method
+1. Introduce sorting by price in view method +
 2. Remove test specific from add method
 3. Introduce Load test using module threading (1000K items) and check that sorting works correct after this test
 4. Add ability to have price=None and correspond tests

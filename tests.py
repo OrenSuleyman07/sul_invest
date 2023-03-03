@@ -1,9 +1,10 @@
+import threading
 import unittest
 from collections import namedtuple
 import main
 
 class case(unittest.TestCase):
-    request_list = namedtuple('list', 'Quantity Price')
+    request_list = namedtuple('Request', 'Quantity Price')
     
     def test_buy_add(self):
         buy_example = main.buy()
@@ -22,8 +23,8 @@ class case(unittest.TestCase):
 
     def test_buy_view(self):
         buy_example = main.buy()
-        buy_example.add(1, 8)
         buy_example.add(195, 29)
+        buy_example.add(1, 8)
         actual = buy_example.view()
         expected = [self.request_list(1, 8), self.request_list(195, 29)]
         self.assertEqual(actual, expected)
@@ -45,8 +46,8 @@ class case(unittest.TestCase):
 
     def test_sale_view(self):
         sale_example = main.sale()
-        sale_example.add(9, 5)
         sale_example.add(36, 289)
+        sale_example.add(9, 5)
         actual = sale_example.view()
         expected = [self.request_list(9, 5), self.request_list(36, 289)]
         self.assertEqual(actual, expected)   

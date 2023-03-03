@@ -8,7 +8,7 @@ while True:
     command = input('\nВведите команду - add, get, del, view, exit: ')
 
     # add, get, del
-    if command == 'add' or command == 'get' or command == 'del':
+    if command in ('add', 'get', 'del'):
         request_type = input('Введите тип завяки - "sale", "buy": ')
 
         # sale
@@ -49,8 +49,8 @@ while True:
 
     # view
     elif command == 'view':
-        print(sale_example.view())
-        print(buy_example.view())
+        print(sale_example.view(), buy_example.view(), sep='\n')
+        # print(buy_example.view())
     
     # exit
     elif command == 'exit':
