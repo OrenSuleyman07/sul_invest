@@ -16,7 +16,7 @@ while True:
             if command == 'add':
                 quantity = input('Введите кол-во: ').strip()
                 price = input('Введите цену: ').strip()
-                request_id, actual, expected = sale_example.add(quantity, price) 
+                request_id = sale_example.add(quantity, price) 
                 print(f'id вашей заявки: {request_id}')
 
             elif command == 'get':
@@ -32,7 +32,7 @@ while True:
             if command == 'add':
                 quantity = input('Введите кол-во: ').strip()
                 price = input('Введите цену: ').strip()
-                request_id, actual, expected = buy_example.add(quantity, price)
+                request_id= buy_example.add(quantity, price)
                 print(f'id вашей заявки: {request_id}')
             
             elif command == 'get':
